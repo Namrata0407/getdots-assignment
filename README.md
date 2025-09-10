@@ -28,7 +28,7 @@ A modern, responsive search interface built with React.js that features smooth a
 
 1. Clone the repository:
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/Namrata0407/getdots-assignment.git
    cd dots-app
    ```
 
