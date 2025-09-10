@@ -1,0 +1,107 @@
+.tab-navigation {
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  border-bottom: 1px solid #eee;
+  position: relative;
+  background: white;
+}
+
+.tab-button {
+  background: none;
+  border: none;
+  padding: 12px 16px;
+  font-size: 14px;
+  color: #666;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tab-icon {
+  display: flex;
+  align-items: center;
+  color: #666;
+  opacity: 0.7;
+}
+
+.tab-button.active .tab-icon {
+  opacity: 1;
+  color: #000;
+}
+
+.tab-button::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: #000;
+  transform: scaleX(0);
+  transition: transform 0.3s ease-out;
+}
+
+.tab-button.active {
+  color: #000;
+}
+
+.tab-button.active::after {
+  transform: scaleX(1);
+}
+
+.count {
+  color: #666;
+  font-size: 12px;
+  margin-left: 4px;
+}
+
+.settings-button {
+  margin-left: auto;
+  border: none;
+  background: none;
+  padding: 8px;
+  color: #666;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.7;
+}
+
+.settings-button:hover {
+  opacity: 1;
+}
+
+.settings-button:active svg {
+  animation: rotate-once 0.4s ease-out;
+}
+
+@keyframes rotate-once {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(180deg);
+  }
+}
+
+/* Mobile styles */
+@media (max-width: 480px) {
+  .tab-navigation {
+    padding: 0 12px;
+  }
+
+  .tab-button {
+    padding: 12px;
+    font-size: 13px;
+  }
+
+  .count {
+    font-size: 11px;
+  }
+
+  .settings-button {
+    padding: 6px;
+  }
+}
