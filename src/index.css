@@ -40,16 +40,16 @@ body {
 }
 
 .custom-cursor {
-  width: 30px;
-  height: 30px;
-  border: 2px solid #666;
+  width: 27px;
+  height: 27px;
+  border: 1px solid #666;
   border-radius: 50%;
+  background-color: rgba(232, 231, 234, 0.5);
   position: fixed;
   pointer-events: none;
   z-index: 9999;
   transition: transform 0.1s ease;
   transform: translate(-50%, -50%);
-  mix-blend-mode: difference;
 }
 
 *:hover ~ .custom-cursor {
