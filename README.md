@@ -27,6 +27,22 @@ A modern, responsive search interface built with React.js that features smooth a
 - Custom loading spinners
 - Intuitive settings interface
 
+## User Experience
+
+### First-Time User Onboarding
+When users first visit the application, they are greeted with a welcoming onboarding screen that:
+- Introduces the main features and capabilities
+- Provides examples of different search types (files, people, chats, lists)
+- Shows quick tips for efficient usage
+- Features a "Got it!" button to dismiss the guide
+- Remembers user preference using session storage
+
+The onboarding experience is designed to be:
+- Non-intrusive (can be dismissed easily)
+- Informative yet concise
+- Visually appealing with a modern glass-morphism design
+- Session-based (shows again in new browser sessions)
+
 ## Installation
 
 1. Clone the repository:
@@ -92,22 +108,6 @@ dots-app/
 - Firefox (latest)
 - Safari (latest)
 - Edge (latest)
-
-## User Experience
-
-### First-Time User Onboarding
-When users first visit the application, they are greeted with a welcoming onboarding screen that:
-- Introduces the main features and capabilities
-- Provides examples of different search types (files, people, chats, lists)
-- Shows quick tips for efficient usage
-- Features a "Got it!" button to dismiss the guide
-- Remembers user preference using session storage
-
-The onboarding experience is designed to be:
-- Non-intrusive (can be dismissed easily)
-- Informative yet concise
-- Visually appealing with a modern glass-morphism design
-- Session-based (shows again in new browser sessions)
 
 ## Notes
 
