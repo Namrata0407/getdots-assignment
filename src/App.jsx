@@ -5,6 +5,7 @@ import TabNavigation from './components/TabNavigation/TabNavigation'
 import SearchResults from './components/SearchResults/SearchResults'
 import SettingsMenu from './components/SettingsMenu/SettingsMenu'
 import CustomCursor from './components/CustomCursor/CustomCursor'
+import OnboardingScreen from './components/OnboardingScreen/OnboardingScreen'
 import { mockResults } from './mockData'
 
 function App() {
@@ -12,6 +13,10 @@ function App() {
   const [activeTab, setActiveTab] = useState('all')
   const [isSettingsOpen, setIsSettingsOpen] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+  const [showOnboarding, setShowOnboarding] = useState(() => {
+    const hasSeenOnboarding = sessionStorage.getItem('hasSeenOnboarding')
+    return hasSeenOnboarding !== 'true'
+  })
   const [settings, setSettings] = useState({
     files: true,
     people: true,
@@ -58,7 +63,6 @@ function App() {
     })
   }
 
-  // Basic search bar UI - always show this
   const searchBarUI = (
     <SearchBar 
       value={searchQuery}
@@ -67,19 +71,23 @@ function App() {
     />
   )
 
-  // If no search text, just show search bar
+  const handleDismissOnboarding = () => {
+    setShowOnboarding(false)
+    sessionStorage.setItem('hasSeenOnboarding', 'true')
+  }
+
   if (!searchQuery.trim()) {
     return (
       <div className="app">
         <div className="search-container">
           {searchBarUI}
-        </div>
-        <CustomCursor />
+          </div>
+          {showOnboarding && <OnboardingScreen onDismiss={handleDismissOnboarding} />}
+          <CustomCursor />
       </div>
     )
   }
 
-  // Show full UI with results
   return (
     <div className="app">
       <div className="search-container expanded">

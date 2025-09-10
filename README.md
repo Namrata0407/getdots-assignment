@@ -4,6 +4,7 @@ A modern, responsive search interface built with React.js that features smooth a
 
 ## Features
 
+- 👋 Interactive onboarding experience for first-time users
 - 🔍 Real-time search with dynamic results filtering
 - 🎯 Multiple result types (files, people, folders, videos)
 - 🎨 Clean and modern UI with smooth animations
@@ -16,6 +17,8 @@ A modern, responsive search interface built with React.js that features smooth a
 - 🔗 Quick actions (copy link, open in new tab)
 
 ## Key UI/UX Features
+- First-time user onboarding with helpful tips and examples
+- Session-based onboarding that remembers returning users
 - Smooth modal transitions and animations
 - Dynamic tab filtering system
 - Real-time search feedback
@@ -53,6 +56,7 @@ A modern, responsive search interface built with React.js that features smooth a
 dots-app/
 ├── src/
 │   ├── components/
+│   │   ├── OnboardingScreen/
 │   │   ├── SearchBar/
 │   │   ├── TabNavigation/
 │   │   ├── SearchResults/
@@ -88,6 +92,22 @@ dots-app/
 - Firefox (latest)
 - Safari (latest)
 - Edge (latest)
+
+## User Experience
+
+### First-Time User Onboarding
+When users first visit the application, they are greeted with a welcoming onboarding screen that:
+- Introduces the main features and capabilities
+- Provides examples of different search types (files, people, chats, lists)
+- Shows quick tips for efficient usage
+- Features a "Got it!" button to dismiss the guide
+- Remembers user preference using session storage
+
+The onboarding experience is designed to be:
+- Non-intrusive (can be dismissed easily)
+- Informative yet concise
+- Visually appealing with a modern glass-morphism design
+- Session-based (shows again in new browser sessions)
 
 ## Notes
 
