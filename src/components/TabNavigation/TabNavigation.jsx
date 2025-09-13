@@ -39,7 +39,7 @@ const SettingsIcon = () => (
   </svg>
 );
 
-const TabNavigation = ({ activeTab, onTabChange, counts, onSettingsClick, settings }) => {
+const TabNavigation = ({ activeTab, onTabChange, counts, onSettingsClick, settings, settingsButtonRef }) => {
   const tabs = [
     { id: 'all', label: 'All', count: counts.all, alwaysShow: true },
     { id: 'files', label: 'Files', count: counts.files, enabled: settings.files, icon: <FileIcon /> },
@@ -50,18 +50,20 @@ const TabNavigation = ({ activeTab, onTabChange, counts, onSettingsClick, settin
 
   return (
     <div className="tab-navigation">
-      {tabs.map(tab => (
-        <button
-          key={tab.id}
-          className={`tab-button ${activeTab === tab.id ? 'active' : ''}`}
-          onClick={() => onTabChange(tab.id)}
-        >
-          {tab.icon && <span className="tab-icon">{tab.icon}</span>}
-          {tab.label}
-          <span className="count">{tab.count || 0}</span>
-        </button>
-      ))}
-      <button className="settings-button" onClick={onSettingsClick}>
+      <div className="tabs-container">
+        {tabs.map(tab => (
+          <button
+            key={tab.id}
+            className={`tab-button ${activeTab === tab.id ? 'active' : ''}`}
+            onClick={() => onTabChange(tab.id)}
+          >
+            {tab.icon && <span className="tab-icon">{tab.icon}</span>}
+            <span className="tab-label">{tab.label}</span>
+            <span className="count">{tab.count || 0}</span>
+          </button>
+        ))}
+      </div>
+      <button className="settings-button" onClick={onSettingsClick} ref={settingsButtonRef}>
         <SettingsIcon />
       </button>
     </div>

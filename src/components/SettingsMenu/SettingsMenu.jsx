@@ -1,4 +1,6 @@
 import ToggleSwitch from '../ToggleSwitch/ToggleSwitch';
+import { createPortal } from 'react-dom';
+import { useEffect, useRef, useState } from 'react';
 import './SettingsMenu.css';
 
 const FileIcon = () => (
@@ -32,7 +34,7 @@ const ListIcon = () => (
   </svg>
 );
 
-const SettingsMenu = ({ isOpen, onClose, settings, onSettingChange }) => {
+const SettingsMenu = ({ isOpen, onClose, settings, onSettingChange, anchorEl }) => {
   if (!isOpen) return null;
 
   const menuItems = [
@@ -42,23 +44,59 @@ const SettingsMenu = ({ isOpen, onClose, settings, onSettingChange }) => {
     { id: 'lists', label: 'Lists', icon: <ListIcon /> }
   ];
 
-  return (
-    <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content" onClick={e => e.stopPropagation()}>
-        <div className="settings-menu">
-          {menuItems.map(item => (
-            <div key={item.id} className="settings-item">
-              <span className="settings-icon">{item.icon}</span>
-              <ToggleSwitch
-                label={item.label}
-                checked={settings[item.id]}
-                onChange={(checked) => onSettingChange(item.id, checked)}
-              />
-            </div>
-          ))}
-        </div>
+  const [coords, setCoords] = useState({ top: 0, left: 0, transform: 'none', right: '', width: 220 })
+  const rafRef = useRef(0)
+
+  useEffect(() => {
+    const update = () => {
+      if (!anchorEl) return
+      const rect = anchorEl.getBoundingClientRect()
+      const top = Math.round(rect.bottom + 8)
+      const isMobile = window.innerWidth <= 480
+      if (isMobile) {
+        setCoords({ top, left: 12, transform: 'none', right: '12px', width: Math.max(220, window.innerWidth - 24) })
+      } else {
+        setCoords({ top, left: Math.round(rect.right), transform: 'translateX(-100%)', right: '', width: 220 })
+      }
+      rafRef.current = requestAnimationFrame(update)
+    }
+    rafRef.current = requestAnimationFrame(update)
+
+    const onResize = () => update()
+    window.addEventListener('resize', onResize)
+    window.addEventListener('scroll', onResize, true)
+    return () => {
+      cancelAnimationFrame(rafRef.current)
+      window.removeEventListener('resize', onResize)
+      window.removeEventListener('scroll', onResize, true)
+    }
+  }, [anchorEl])
+
+  return createPortal(
+    <div
+      className="modal-content"
+      style={{
+        top: `${coords.top}px`,
+        left: typeof coords.left === 'number' ? `${coords.left}px` : coords.left,
+        right: coords.right,
+        transform: coords.transform,
+        width: typeof coords.width === 'number' ? `${coords.width}px` : coords.width
+      }}
+    >
+      <div className="settings-menu">
+        {menuItems.map(item => (
+          <div key={item.id} className="settings-item">
+            <span className="settings-icon">{item.icon}</span>
+            <ToggleSwitch
+              label={item.label}
+              checked={settings[item.id]}
+              onChange={(checked) => onSettingChange(item.id, checked)}
+            />
+          </div>
+        ))}
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };
 

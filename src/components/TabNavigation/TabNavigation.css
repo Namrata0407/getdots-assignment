@@ -5,6 +5,31 @@
   border-bottom: 1px solid #eee;
   position: relative;
   background: white;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.tab-navigation::-webkit-scrollbar {
+  display: none;
+}
+
+.tabs-container {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-width: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.tabs-container::-webkit-scrollbar {
+  display: none;
 }
 
 .tab-button {
@@ -17,6 +42,14 @@
   display: flex;
   align-items: center;
   gap: 8px;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  min-width: fit-content;
+}
+
+.tab-button:hover {
+  color: #333;
 }
 
 .tab-icon {
@@ -67,6 +100,9 @@
   align-items: center;
   justify-content: center;
   opacity: 0.7;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
 }
 
 .settings-button:hover {
@@ -86,15 +122,114 @@
   }
 }
 
-/* Mobile styles */
-@media (max-width: 480px) {
+.tab-label {
+  white-space: nowrap;
+  display: inline !important; 
+  min-width: max-content;
+}
+
+@media (max-width: 320px) {
+  .tab-navigation {
+    padding: 0 4px;
+  }
+
+  .tab-button {
+    padding: 6px 8px;
+    font-size: 11px;
+    gap: 3px;
+    min-width: auto;
+  }
+
+  .tab-icon {
+    display: none;
+  }
+
+  .tab-label {
+    font-size: 10px;
+  }
+
+  .count {
+    font-size: 10px;
+    margin-left: 2px;
+  }
+
+  .settings-button {
+    padding: 3px;
+    margin-left: 4px;
+  }
+}
+
+@media (max-width: 360px) and (min-width: 321px) {
+  .tab-navigation {
+    padding: 0 6px;
+  }
+
+  .tab-button {
+    padding: 8px 10px;
+    font-size: 12px;
+    gap: 4px;
+    min-width: auto;
+  }
+
+  .tab-icon {
+    display: none;
+  }
+
+  .tab-label {
+    font-size: 11px; 
+  }
+
+  .count {
+    font-size: 10px;
+    margin-left: 2px;
+  }
+
+  .settings-button {
+    padding: 4px;
+    margin-left: 6px;
+  }
+}
+
+@media (max-width: 480px) and (min-width: 361px) {
+  .tab-navigation {
+    padding: 0 8px;
+  }
+
+  .tab-icon{
+    height: 0.8rem;
+    width: 0.8rem;
+  }
+
+  .tab-button {
+    padding: 10px 8px;
+    font-size: 8px;
+    gap: 3px;
+  }
+
+  .tab-label {
+    font-size: 10px;
+  }
+
+  .count {
+    font-size: 10px;
+    margin-left: 3px;
+  }
+
+  .settings-button {
+    padding: 6px;
+    margin-left: 8px;
+  }
+}
+
+@media (max-width: 640px) and (min-width: 481px) {
   .tab-navigation {
     padding: 0 12px;
   }
 
   .tab-button {
-    padding: 12px;
-    font-size: 13px;
+    padding: 10px 11px;
+    font-size: 10px;
+    gap: 7px;
   }
 
   .count {
@@ -102,6 +237,13 @@
   }
 
   .settings-button {
-    padding: 6px;
+    padding: 7px;
+  }
+}
+
+@media (max-width: 768px) and (min-width: 641px) {
+  .tab-button {
+    padding: 12px 15px;
+    font-size: 14px;
   }
 }

@@ -112,3 +112,51 @@
   font-size: 13px;
   color: #666;
 }
+
+@media (max-width: 480px) {
+  .search-bar {
+    padding: 12px;
+  }
+
+  .search-icon {
+    left: 10px;
+    width: 20px;
+    height: 20px;
+  }
+
+  .loading-spinner {
+    width: 20px;
+    height: 20px;
+  }
+
+  .search-input {
+    padding: 10px 112px 10px 40px;
+    font-size: 16px; 
+  }
+
+  .search-input::placeholder {
+    font-size: 16px;
+    letter-spacing: -0.1px;
+  }
+
+  .clear-button {
+    right: 8px;
+    font-size: 12px;
+    padding: 4px 6px;
+  }
+
+  .quick-access {
+    right: 10px;
+    gap: 6px;
+  }
+
+  .shortcut-key {
+    width: 18px;
+    height: 18px;
+    font-size: 11px;
+  }
+
+  .quick-access-text {
+    font-size: 12px;
+  }
+}

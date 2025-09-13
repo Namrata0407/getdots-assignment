@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useRef, useLayoutEffect } from 'react'
 import './App.css'
 import SearchBar from './components/SearchBar/SearchBar'
 import TabNavigation from './components/TabNavigation/TabNavigation'
@@ -24,17 +24,48 @@ function App() {
     lists: false
   })
 
-  // Get matching results
+  const animatedSectionRef = useRef(null)
+  const contentRef = useRef(null)
+  const [animatedHeight, setAnimatedHeight] = useState(null)
+  const settingsButtonRef = useRef(null)
+
+  useLayoutEffect(() => {
+    const contentEl = contentRef.current
+    const animatedEl = animatedSectionRef.current
+    if (!contentEl || !animatedEl) return
+
+    const measure = () => {
+      const nextHeight = contentEl.offsetHeight
+      setAnimatedHeight(prev => (prev === nextHeight ? prev : nextHeight))
+    }
+
+    measure()
+
+    const resizeObserver = new ResizeObserver(() => {
+      requestAnimationFrame(measure)
+    })
+    resizeObserver.observe(contentEl)
+
+    return () => {
+      resizeObserver.disconnect()
+    }
+  }, [
+    isLoading,
+    activeTab,
+    settings,
+    searchQuery
+  ])
+  const hasQuery = searchQuery.trim().length > 0
+
   const filteredResults = useMemo(() => {
     const query = searchQuery.trim().toLowerCase()
     if (!query) return []
-    
-    return mockResults.filter(item => 
+
+    return mockResults.filter(item =>
       item.name.toLowerCase().includes(query)
     )
   }, [searchQuery])
 
-  // Calculate counts based on filtered results
   const counts = useMemo(() => ({
     all: filteredResults.length,
     files: filteredResults.filter(item => item.type === 'file' || item.type === 'video').length,
@@ -64,7 +95,7 @@ function App() {
   }
 
   const searchBarUI = (
-    <SearchBar 
+    <SearchBar
       value={searchQuery}
       onSearch={handleSearch}
       isLoading={isLoading}
@@ -76,41 +107,46 @@ function App() {
     sessionStorage.setItem('hasSeenOnboarding', 'true')
   }
 
-  if (!searchQuery.trim()) {
-    return (
-      <div className="app">
-        <div className="search-container">
-          {searchBarUI}
-          </div>
-          {showOnboarding && <OnboardingScreen onDismiss={handleDismissOnboarding} />}
-          <CustomCursor />
-      </div>
-    )
-  }
+  const shouldExpand = isSettingsOpen || isLoading || hasQuery
 
   return (
     <div className="app">
-      <div className="search-container expanded">
+      <div className={`search-container ${shouldExpand ? 'expanded' : ''} ${isSettingsOpen ? 'settings-open' : ''}`}>
         {searchBarUI}
-        <TabNavigation 
-          activeTab={activeTab}
-          onTabChange={setActiveTab}
-          counts={counts}
-          onSettingsClick={() => setIsSettingsOpen(true)}
-          settings={settings}
-        />
-        <SearchResults 
-          results={filteredResults}
-          activeTab={activeTab}
-          isLoading={isLoading}
-        />
-        <SettingsMenu
-          isOpen={isSettingsOpen}
-          onClose={() => setIsSettingsOpen(false)}
-          settings={settings}
-          onSettingChange={handleSettingChange}
-        />
+        <div
+          ref={animatedSectionRef}
+          className="animated-section"
+          style={{ height: animatedHeight == null ? 'auto' : `${animatedHeight}px` }}
+        >
+          <div ref={contentRef}>
+            {hasQuery && (
+              <>
+                <TabNavigation
+                  activeTab={activeTab}
+                  onTabChange={setActiveTab}
+                  counts={counts}
+                  onSettingsClick={() => setIsSettingsOpen(!isSettingsOpen)}
+                  settings={settings}
+                  settingsButtonRef={settingsButtonRef}
+                />
+                <SearchResults
+                  results={filteredResults}
+                  activeTab={activeTab}
+                  isLoading={isLoading}
+                />
+                <SettingsMenu
+                  isOpen={isSettingsOpen}
+                  onClose={() => setIsSettingsOpen(false)}
+                  settings={settings}
+                  onSettingChange={handleSettingChange}
+                  anchorEl={settingsButtonRef.current}
+                />
+              </>
+            )}
+          </div>
+        </div>
       </div>
+      {showOnboarding && !hasQuery && <OnboardingScreen onDismiss={handleDismissOnboarding} />}
       <CustomCursor />
     </div>
   )
