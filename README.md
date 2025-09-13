@@ -1,4 +1,4 @@
-# [Dots Search Interface](https://dots-pfsn8pzgg-namrata0407s-projects.vercel.app/)
+# [Dots Search Interface](https://dots-app-ten.vercel.app/)
 
 A modern, responsive search interface built with React.js that features smooth animations, dynamic filtering, and a beautiful UI.
 
@@ -42,6 +42,15 @@ The onboarding experience is designed to be:
 - Informative yet concise
 - Visually appealing with a modern glass-morphism design
 - Session-based (shows again in new browser sessions)
+
+## Onboarding Page
+<img width="500" height="443" alt="Screenshot 2025-09-11 144902" src="https://github.com/user-attachments/assets/72af754d-c5bb-4063-af30-bd52899671b9" />
+
+## Search UI
+<img width="497" height="560" alt="Screenshot 2025-09-11 145911" src="https://github.com/user-attachments/assets/e0bcb17c-2b2e-4f53-9586-7f483748bf54" />
+
+## Setting Popup
+<img width="438" height="529" alt="Screenshot 2025-09-11 145928" src="https://github.com/user-attachments/assets/90923023-a722-48d7-8989-8339d73976ce" />
 
 ## Installation
 
