@@ -1,4 +1,4 @@
-# [Dots Search Interface](https://dots-app-ten.vercel.app/)
+# [Dots Search Interface](https://dots-app-six.vercel.app/)
 
 A modern, responsive search interface built with React.js that features smooth animations, dynamic filtering, and a beautiful UI.
 
